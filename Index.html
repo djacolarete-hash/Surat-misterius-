@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Nirma Lestari Ayu Ningsih</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@300;500&family=Great+Vibes&family=Playfair+Display:italic,wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fff0f3;
+            overflow-x: hidden;
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Envelope Styles */
+        .envelope-wrapper {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background-color: #ffb3c1;
+            box-shadow: 0 15px 35px rgba(255, 75, 110, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            z-index: 10;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 110px solid #ff8fa3;
+            z-index: 30;
+            transform-origin: top;
+            transition: transform 0.6s ease-in-out;
+        }
+
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            width: 320px;
+            height: 110px;
+            background-color: #ffb3c1;
+            z-index: 20;
+        }
+
+        .envelope-sides {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid #ffccd5;
+            border-right: 160px solid #ffccd5;
+            border-top: 110px solid transparent;
+            z-index: 25;
+        }
+
+        .card-preview {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 300px;
+            height: 200px;
+            background: white;
+            z-index: 15;
+            transition: transform 0.6s ease-in-out;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .opened .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 10;
+        }
+
+        .opened .card-preview {
+            transform: translateY(-120px);
+            z-index: 35;
+        }
+
+        .heart-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 100;
+            animation: floatUp 4s linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .main-view {
+            display: none;
+            opacity: 0;
+            transition: opacity 1.5s ease-in;
+        }
+
+        .active-view {
+            display: block;
+            opacity: 1;
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .recipient-name {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Music Toggle Button */
+        #music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Musik Piano Romantis -->
+    <audio id="pianoMusic" loop>
+        <source src="https://www.chosic.com/wp-content/uploads/2021/04/My-Love-Piano-Melody.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="music-control" onclick="toggleMusic()">
+        <span id="music-icon">🔇</span>
+    </div>
+
+    <!-- SECTION 1: ENVELOPE -->
+    <div id="initial-view" class="flex flex-col items-center">
+        <div class="mb-12 text-center px-4">
+            <h2 class="text-pink-600 text-lg font-medium tracking-wide uppercase mb-2">Pesan Khusus Untuk</h2>
+            <h1 class="recipient-name text-2xl md:text-3xl text-pink-800">Nirma Lestari Ayu Ningsih</h1>
+        </div>
+
+        <div id="envelope" class="envelope-wrapper" onclick="openMessage()">
+            <div class="envelope-flap"></div>
+            <div class="envelope-body"></div>
+            <div class="envelope-sides"></div>
+            <div class="card-preview">
+                <div class="text-pink-400 mb-2">
+                    <svg class="w-10 h-10 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path>
+                    </svg>
+                </div>
+                <p class="text-sm text-pink-500 font-bold animate-pulse">Buka Pesan Ini</p>
+            </div>
+            <div class="absolute -bottom-8 left-0 w-full text-center">
+                <p class="text-pink-400 italic text-sm">Dari: Sahrul Gunawan</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: LANDING PAGE -->
+    <div id="content-view" class="main-view w-full max-w-2xl px-4 py-10">
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden border border-pink-50">
+            <div class="h-40 bg-pink-100 flex items-center justify-center relative">
+                <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/pinstriped-suit.png');"></div>
+                <div class="z-10 text-center">
+                    <div class="flex space-x-2 justify-center mb-2">
+                        <span class="text-pink-500 text-2xl animate-bounce">♥</span>
+                        <span class="text-pink-400 text-2xl animate-bounce" style="animation-delay: 0.2s">♥</span>
+                        <span class="text-pink-500 text-2xl animate-bounce" style="animation-delay: 0.4s">♥</span>
+                    </div>
+                    <h1 class="signature text-4xl text-pink-700">Maafkan Saya Sayang</h1>
+                </div>
+            </div>
+
+            <div class="p-8 md:p-12">
+                <div class="mb-10">
+                    <h3 class="text-gray-400 text-xs uppercase tracking-[0.2em] mb-3">Sebuah Pesan Tulus Untuk</h3>
+                    <h2 class="recipient-name text-3xl text-pink-800 leading-tight">
+                        Nirma Lestari Ayu Ningsih
+                    </h2>
+                </div>
+
+                <div class="space-y-8 text-gray-700">
+                    <div class="relative">
+                        <span class="absolute -top-6 -left-4 text-6xl text-pink-100">"</span>
+                        <p class="text-2xl md:text-3xl italic font-semibold text-pink-600 leading-snug relative z-10">
+                            Iyee saya tau jhi salah kah sayang. ndd waktu untuk kabari Ki maaf na sayang
+                        </p>
+                    </div>
+
+                    <div class="w-16 h-1 bg-pink-200"></div>
+
+                    <p class="text-lg leading-relaxed font-light italic">
+                        Nirma, saya mengerti betapa pentingnya komunikasi. Kesalahan saya adalah membiarkan waktu berlalu tanpa memberi kabar, hingga mungkin membuatmu merasa tak dipedulikan.
+                    </p>
+
+                    <p class="text-lg leading-relaxed font-light italic">
+                        Maafkan ketidakpekaan saya, Sayang. Tidak ada maksud untuk mengabaikanmu. Kamu tetap prioritas dalam doa dan pikiranku, meski kadang saya gagal menunjukkannya dengan baik.
+                    </p>
+                </div>
+
+                <div class="mt-16 pt-8 border-t border-pink-50 flex flex-col items-end">
+                    <p class="text-sm text-gray-400 italic mb-2">Dengan tulus,</p>
+                    <p class="signature text-5xl text-pink-600">Sahrul Gunawan</p>
+                </div>
+            </div>
+
+            <div class="bg-pink-50/50 p-6 text-center">
+                <button onclick="location.reload()" class="bg-white px-6 py-2 rounded-full shadow-sm text-pink-400 text-xs font-bold uppercase tracking-widest hover:bg-pink-500 hover:text-white transition-all duration-300">
+                    Mulai Dari Awal
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('pianoMusic');
+        const musicControl = document.getElementById('music-control');
+        const musicIcon = document.getElementById('music-icon');
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart-particle';
+            const icons = ['❤️', '💖', '🌸', '✨', '🌷', '🎹'];
+            heart.innerHTML = icons[Math.floor(Math.random() * icons.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play();
+                musicIcon.innerText = '🔊';
+            } else {
+                audio.pause();
+                musicIcon.innerText = '🔇';
+            }
+        }
+
+        function openMessage() {
+            const envelope = document.getElementById('envelope');
+            const initialView = document.getElementById('initial-view');
+            const contentView = document.getElementById('content-view');
+
+            // Play music on interaction
+            audio.play().catch(e => console.log("Audio play failed, user interaction needed"));
+            musicControl.style.display = 'block';
+            musicIcon.innerText = '🔊';
+
+            envelope.classList.add('opened');
+
+            // Start particles
+            setInterval(createHeart, 250);
+
+            setTimeout(() => {
+                initialView.style.transition = 'opacity 1s ease-out';
+                initialView.style.opacity = '0';
+                
+                setTimeout(() => {
+                    initialView.style.display = 'none';
+                    contentView.classList.add('active-view');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 1000);
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
+
